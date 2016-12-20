@@ -1,0 +1,2 @@
+# adspace
+Silence advertisements automatically
