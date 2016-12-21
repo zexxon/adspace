@@ -7,11 +7,25 @@ import pychromecast
 
 def getInput():
     if (len(sys.argv)) > 1:
+        if sys.argv[1] == "/?" or sys.argv[1] == "/h":
+            printHelp()
+            return ""
+        # Else return chromecast device name
         print(sys.argv[1])
         return sys.argv[1]
+    printHelp()
     return ""
 
+def printHelp():
+    print("Usage: python adspace-chrome.py [chromecast]")
+    print("Example: python adspace-chrome.py livingroom")
+
+
 def connectCast(ccName):
+    # Check if a Chromecast device has been specified
+    if len(ccName)==0:
+        print("No Chromecast device specified!")
+        return ""
     chromeCasts = pychromecast.get_chromecasts()
     print(chromeCasts)
     [cc.device.friendly_name for cc in chromeCasts]
@@ -24,10 +38,12 @@ def connectCast(ccName):
     return cast
 
 def controlMedia(cast):
+    # Check if a valid chromecast device has been passed
+    if len(cast) == 0:
+        return
     mc = cast.media_controller
     while True:
         muteAd(mc, cast)
-
 
 def muteAd(mc, cast):
     # Check if there is any media available, if not sleep for 5 seconds and check again.
