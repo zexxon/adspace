@@ -2,18 +2,26 @@
 
 from __future__ import print_function
 import time
+import sys
 import pychromecast
-# pychromecast.get_chromecasts_as_dict().keys()
-chromecast=""
 
-def connectCast():
-    cast = pychromecast.get_chromecast(friendly_name=chromecast)
+def getInput():
+    if (len(sys.argv)) > 1:
+        print(sys.argv[1])
+        return sys.argv[1]
+    return ""
+
+def connectCast(ccName):
+    chromeCasts = pychromecast.get_chromecasts()
+    print(chromeCasts)
+    [cc.device.friendly_name for cc in chromeCasts]
+    cast = next(cc for cc in chromeCasts if cc.device.friendly_name == ccName)
     while cast.status is None:
         time.sleep(1)
         print("Waiting for Chromecast Status..")
     print(cast.device)
+    print(cast.status)
     return cast
-
 
 def controlMedia(cast):
     mc = cast.media_controller
@@ -51,9 +59,7 @@ def muteAd(mc, cast):
         time.sleep(1)
         if mc.status.title != title:
             return
-
     return
 
 # Main Program
-
-controlMedia(connectCast())
+controlMedia(connectCast(getInput()))
