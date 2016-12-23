@@ -1,5 +1,4 @@
 """
-Author: Matt Maloney
 Simple auto ad mute program for Chromecast devices.
 """
 from __future__ import print_function
