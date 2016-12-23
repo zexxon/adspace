@@ -120,11 +120,9 @@ def mute_ad(mc, cast):
     else:
         print("Track Artist: " + mc.status.artist)
     title = mc.status.title  # Temporary title store for change detection
-    current_time = mc.status.current_time  # Enumerate current time elapsed vs. total track time
-    duration = mc.status.duration
     print("Track Title: " + title)
     print("Sleeping for " + normalize_time(tracktime))
-    while current_time < duration:
+    while mc.status.current_time < mc.status.duration:
         time.sleep(1)
         if mc.status.title != title:
             return
@@ -138,7 +136,7 @@ def normalize_time(rawtime):
     """
     try:  # Return normalized time in seconds or minutes
         if int(rawtime)/60 < 1:
-                return str(round(int(rawtime), 0)) + " seconds"
+                return str(round(int(rawtime), 1)) + " seconds"
         return str(round(int(rawtime)/60, 1)) + " minutes"
     except Exception as e:
         print("Error parsing time: ", str(e))
