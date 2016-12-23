@@ -120,7 +120,7 @@ def mute_ad(mc, cast):
         print("Track Artist: " + mc.status.artist)
     title = mc.status.title  # Temporary title store for change detection
     print("Track Title: " + title)
-    print("Sleeping for " + normalize_time(tracktime))
+    print("Sleeping for " + normalize_time(mc.status.duration))
     while mc.status.current_time < mc.status.duration:
         time.sleep(1)
         if mc.status.title != title:
