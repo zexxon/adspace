@@ -1,5 +1,5 @@
 # Adspace
-#Silence advertisements automatically#
+## Silence advertisements automatically ##
 
 Usage: python adspace-chrome.py [chromecast]
 
